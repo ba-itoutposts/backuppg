@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: test
+  name: test
+spec:
+  containers:
+  - image: pgbackup:1.0
+    name: test
+    imagePullPolicy: Never
+    args: ["--config", "/etc/config/psql.config", "--action", "backup"]
+    volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+      - name: backup-dir
+        mountPath: /tmp
+  volumes:
+    - name: backup-dir
+      hostPath:
+              path: /backup
+              type: Directory
+    - name: config-volume
+      configMap:
+        name: psql.config
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+

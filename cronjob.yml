@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  creationTimestamp: null
+  name: pgbackup
+spec:
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      name: pgbackup
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+             - image: pgbackup:1.0
+               name: pgbackup
+               imagePullPolicy: Never
+               args: ["--config", "/etc/config/psql.config", "--action", "backup"]
+               volumeMounts:
+                   - name: config-volume
+                     mountPath: /etc/config
+                   - name: backup-dir
+                     mountPath: /tmp
+          volumes:
+                  - name: backup-dir
+                    hostPath:
+                       path: /backup
+                       type: Directory
+                  - name: config-volume
+                    configMap:
+                       name: psql.config
+          restartPolicy: OnFailure
+  schedule: 0 2 0 0 0
+status: {}
+
