@@ -8,6 +8,7 @@ port=<<port of postgres>>
 db=<<name or list of dbs>> seperated by comma that want to backup>
 user=<USER NAME>
 password=<<Password of USER>> ```
+  
 2) Create a configmap from this file with the same namespace with postgress service:
    kubectl create configmap pgsql.conf --namespace=postgres --from-file=pgsql.conf
 3) See the cronjob.yml file for last step.   
