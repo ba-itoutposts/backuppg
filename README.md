@@ -9,4 +9,5 @@ db=<<name or list of dbs>> seperated by comma that want to backup>
 user=<USER NAME>
 password=<<Password of USER>>```
   
-   
+2) Create a configmap from the file pgsql.conf
+  `kubectl create configmap pgsql.conf --namespace postgres --from-file pgsql`
