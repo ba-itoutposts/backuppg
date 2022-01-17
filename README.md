@@ -11,3 +11,4 @@ password=<<Password of USER>>```
   
 2) Create a configmap from the file pgsql.conf
   `kubectl create configmap pgsql.conf --namespace postgres --from-file pgsql`
+3) Create a cronjob. You can use cronjob.yml file in this repo as a example
